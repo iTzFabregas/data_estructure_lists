@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "ArvoreAVL.h" //inclui os Protótipos
+#include "ArvoreAVL.h" //inclui os Protï¿½tipos
 
 struct NO{
     int info;
@@ -28,7 +28,7 @@ void libera_NO(struct NO* no){
 void libera_ArvAVL(ArvAVL* raiz){
     if(raiz == NULL)
         return;
-    libera_NO(*raiz);//libera cada nó
+    libera_NO(*raiz);//libera cada nï¿½
     free(raiz);//libera a raiz
 }
 
@@ -81,12 +81,10 @@ int altura_ArvAVL(ArvAVL *raiz){
         return(alt_dir + 1);
 }
 
-void preOrdem_ArvAVL(ArvAVL *raiz){
+void preOrdem_ArvAVL(ArvAVL *raiz){ 
     if(raiz == NULL)
         return;
     if(*raiz != NULL){
-        //printf("%d\n",(*raiz)->info);
-        //printf("No %d: %d\n",(*raiz)->info,fatorBalanceamento_NO(*raiz));
         printf("No %d: %d\n",(*raiz)->info,altura_NO(*raiz));
         preOrdem_ArvAVL(&((*raiz)->esq));
         preOrdem_ArvAVL(&((*raiz)->dir));
@@ -98,7 +96,6 @@ void emOrdem_ArvAVL(ArvAVL *raiz){
         return;
     if(*raiz != NULL){
         emOrdem_ArvAVL(&((*raiz)->esq));
-        //printf("%d\n",(*raiz)->info);
         printf("No %d: H(%d) fb(%d)\n",(*raiz)->info,altura_NO(*raiz),fatorBalanceamento_NO(*raiz));
         emOrdem_ArvAVL(&((*raiz)->dir));
     }
@@ -131,7 +128,7 @@ int consulta_ArvAVL(ArvAVL *raiz, int valor){
 }
 
 //=================================
-void RotacaoLL(ArvAVL *A){//LL
+void RotacaoLL(ArvAVL *A){ // rotaÃ§Ã£o simples pra esquerda
     printf("RotacaoLL\n");
     struct NO *B;
     B = (*A)->esq;
@@ -142,7 +139,7 @@ void RotacaoLL(ArvAVL *A){//LL
     *A = B;
 }
 
-void RotacaoRR(ArvAVL *A){//RR
+void RotacaoRR(ArvAVL *A){ // rotaÃ§Ã£o simples pra direita
     printf("RotacaoRR\n");
     struct NO *B;
     B = (*A)->dir;
@@ -153,19 +150,19 @@ void RotacaoRR(ArvAVL *A){//RR
     (*A) = B;
 }
 
-void RotacaoLR(ArvAVL *A){//LR
+void RotacaoLR(ArvAVL *A){ // rotaÃ§Ã£o para DIREITA e depois para ESQUERDA
     RotacaoRR(&(*A)->esq);
     RotacaoLL(A);
 }
 
-void RotacaoRL(ArvAVL *A){//RL
+void RotacaoRL(ArvAVL *A){// rotaÃ§Ã£o para ESQUERDA e depois para DIREITA
     RotacaoLL(&(*A)->dir);
     RotacaoRR(A);
 }
 
 int insere_ArvAVL(ArvAVL *raiz, int valor){
     int res;
-    if(*raiz == NULL){//árvore vazia ou nó folha
+    if(*raiz == NULL){//ï¿½rvore vazia ou nï¿½ folha
         struct NO *novo;
         novo = (struct NO*)malloc(sizeof(struct NO));
         if(novo == NULL)
@@ -223,8 +220,8 @@ struct NO* procuraMenor(struct NO* atual){
 }
 
 int remove_ArvAVL(ArvAVL *raiz, int valor){
-	if(*raiz == NULL){// valor não existe
-	    printf("valor não existe!!\n");
+	if(*raiz == NULL){// valor nï¿½o existe
+	    printf("valor nï¿½o existe!!\n");
 	    return 0;
 	}
 
@@ -252,14 +249,14 @@ int remove_ArvAVL(ArvAVL *raiz, int valor){
 	}
 
 	if((*raiz)->info == valor){
-	    if(((*raiz)->esq == NULL || (*raiz)->dir == NULL)){// nó tem 1 filho ou nenhum
+	    if(((*raiz)->esq == NULL || (*raiz)->dir == NULL)){// nï¿½ tem 1 filho ou nenhum
 			struct NO *oldNode = (*raiz);
 			if((*raiz)->esq != NULL)
                 *raiz = (*raiz)->esq;
             else
                 *raiz = (*raiz)->dir;
 			free(oldNode);
-		}else { // nó tem 2 filhos
+		}else { // nï¿½ tem 2 filhos
 			struct NO* temp = procuraMenor((*raiz)->dir);
 			(*raiz)->info = temp->info;
 			remove_ArvAVL(&(*raiz)->dir, (*raiz)->info);
